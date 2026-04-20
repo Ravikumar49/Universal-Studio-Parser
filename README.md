@@ -25,3 +25,5 @@ A comprehensive, interactive web-based tool for exploring, simulating, and compa
 Since this is a fully client-side application, no heavy backend installation is required.
 
 1. **Clone the repository:**
+bash
+   git clone [https://github.com/Ravikumar49/Universal-Studio-Parser.git](https://github.com/Ravikumar49/Universal-Studio-Parser.git)
