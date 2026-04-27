@@ -12,7 +12,7 @@ function getFirstOfSequence(sequence, firstSets) {
             break;
         }
         else {
-            for(let f in firstSets[symbol]) {
+            for(let f of firstSets[symbol]) {
                 if(f !== 'ε') result.add(f);
             }
             if(!firstSets[symbol].has('ε')) {
