@@ -748,11 +748,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==========================================
 
         // LL(1) - Top Down
-        const { conflicts: ll1Conflicts } = generateLL1Table(grammar, firstSets, followSets);
+        const noRecursionGrammar = eliminateLeftRecursion(grammar);
+        const optimizedGrammar = eliminateLeftFactoring(noRecursionGrammar);
+            
+        // 2. Compute sets for the optimized grammar
+        const ll1FirstSets = computeFirstSets(optimizedGrammar);
+        const ll1FollowSets = computeFollowSets(optimizedGrammar, ll1FirstSets);
+            
+        // 3. Generate LL(1)
+        const { conflicts: ll1Conflicts } = generateLL1Table(optimizedGrammar, ll1FirstSets, ll1FollowSets);
         const ll1Status = ll1Conflicts.length === 0 
-            ? "<span style='color: #4caf50; font-weight: bold;'>Accepted</span>" 
-            : "<span style='color: #ff4d4d; font-weight: bold;'>Failed (Conflicts)</span>";
-        
+                ? "<span style='color: #4caf50; font-weight: bold;'>Accepted</span>" 
+                : "<span style='color: #ff4d4d; font-weight: bold;'>Failed (Conflicts)</span>";
+
         // LR(0) 
         const lr0DFA = generateLR0DFA(grammar, startSymbol);
         const lr0TableData = generateLR0Table(lr0DFA, grammar, startSymbol); 
